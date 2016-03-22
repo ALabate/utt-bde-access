@@ -1,7 +1,7 @@
-EtuUTT Election module
+EtuUTT access module
 ======================
 
-This is a small laravel project created for the student office of my university. Students can vote for a team during election on this application. They log in via our [student website API](https://github.com/ungdev/EtuUTT).
+This is a small laravel project created for the student office of my university. Students can request access to doors for their associations.
 
 Althoug this project is licensed under the [MIT license](http://opensource.org/licenses/MIT), it has not a lot of chances to be used in another place than our university. That's why a part of the documentation is in French.
 
@@ -125,10 +125,10 @@ mysql --user=root -p
 ```
 * Creation d'une base de donnée et d'un user associé
 ```sql
-CREATE DATABASE election;
+CREATE DATABASE access;
 # Replace `password` in the following line
-CREATE USER 'election'@'localhost' IDENTIFIED BY 'password';
-GRANT ALL PRIVILEGES ON election.* To 'election'@'localhost';
+CREATE USER 'access'@'localhost' IDENTIFIED BY 'password';
+GRANT ALL PRIVILEGES ON access.* To 'access'@'localhost';
 FLUSH PRIVILEGES;
 ```
 
@@ -136,7 +136,7 @@ FLUSH PRIVILEGES;
 
 ```bash
 apt-get install git
-git clone https://github.com/alabate/utt-bde-election /var/www/domain.com
+git clone https://github.com/alabate/utt-bde-access /var/www/domain.com
 cd /var/www/domain.com/
 composer update
 chown -R www-data:www-data /var/www/domain.com/
@@ -149,11 +149,11 @@ chown -R www-data:www-data /var/www/domain.com/
 * Executez `php artisan migrate` afin de créer les tables dans la base de donnée
 * Executez `php artisan key:generate` afin de générer la clé de chiffrement
 * Modifiez la propriété `url` de `config/app.php`. Modifiez aussi les locales et timezone si nécéssaire.
-* Copiez le fichier `config/election.example.php` en `config/election.php`
+* Copiez le fichier `config/access.example.php` en `config/access.php`
 * Créez une application sur le [site etudiant de l'UTT](https://etu.utt.fr/api/panel)
  * Utilisez `http://xxxxxx/login/auth` comme URL de redirection
  * Cochez uniquement 'Données publiques'
-* Réglez chaque parametre du fichier `config/election.php`
-* Si vous êtes sur le même réseau local que le site etu, il se peut que vous ne puissiez pas vous y connecter. Testez en faisant `wget etu.utt.fr`, si la connexion est refusée, alors essayez `http://illidan.sia` (pas de https) comme `baseuri` de `config/election.php`
+* Réglez chaque parametre du fichier `config/access.php`
+* Si vous êtes sur le même réseau local que le site etu, il se peut que vous ne puissiez pas vous y connecter. Testez en faisant `wget etu.utt.fr`, si la connexion est refusée, alors essayez `http://illidan.sia` (pas de https) comme `baseuri` de `config/access.php`
 * Si votre serveur n'est pas en https, commentez la ligne `URL::forceSchema("https");` du fichier `app/Http/routes.php`
 * Enfin réglez les droits du dossier : `chown -R www-data:www-data /var/www/domain.com/`
